@@ -19,7 +19,7 @@
       <!-- Input -->
       <div class="js-form-message mb-3">
         <div class="js-focus-state input-group input-group form">
-          <input type="text" class="form-control form__input" required="" placeholder="Ingrese su nombre"
+          <input type="text" class="form-control form__input" required="" placeholder="Ingrese numero de RUDE"
             aria-label="Enter your name" aria-invalid="true" aria-describedby="name-error" v-model="name">
         </div>
       </div>

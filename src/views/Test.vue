@@ -106,7 +106,7 @@
         <p class="close" @click="CloseModal()">X</p>
           <div class="w-md-80 w-lg-60 text-center mx-md-auto mb-3">
             <h2 class="h3">Edgar Dilmar Peralta Limachi</h2>
-            <p>Resultados de la prueba general.</p>
+            <p>La prueba general es evaluada sobre 100 puntos opteniendo una calificaion de:</p>
           </div>
           <!-- End Title -->
 
@@ -176,20 +176,23 @@
                                     <!-- <div v-if="(value.tipo == 'cerrada')"> -->
                                     <div class="test-contenido" v-for="(dato, descripcion) in value">
                                         <div class="pregunta-cerrada" v-if="(value.tipo == 'cerrada')">
-                                            <!-- <div v-if="(descripcion == 'imagen')">
-                                                <img v-bind:src="imagen">
-                                            </div> -->
                                            <!--   <div v-if="(descripcion == 'tecnica')">
                                                 <label>{{dato}}</label>
                                             </div>
  -->
                                             <label v-if="(descripcion == 'pregunta' )" class="col-md-12 test-pregunta"><span>{{key}}. </span>{{dato}}</label>
+                                            <div v-if="(descripcion === 'imagen')">
+                                                <img v-if="(value.imagen!='')" v-bind:src="value.imagen" id="descripcion" class="imagen" alt="img" />
+                                            </div>
                                             <div class="respuesta-contenedor" v-if="(descripcion == 'respuesta' )">
                                                 <div v-for="(respuesta, calificacion) in dato">
-                                                    <label v-bind:for="key" >{{ calificacion }}</label>
+                                                    <input  type="radio"  v-bind:name="key" v-bind:id="key" v-bind:value="respuesta">   
+                                                        <!--  <div v-if="(calificacion === 'imagen')">
+                                                            <img v-bind:src="respuesta.imagen" id="descripcion" class="imagen" alt="img" />
+                                                        </div> -->
+                                                    <label v-bind:for="key" > {{ calificacion }}</label>
                                                     <!-- <label>{{respuesta}}</label> -->
-                                                        <input  type="radio"  v-bind:name="key" v-bind:id="key" v-bind:value="respuesta">        
-                                                        <!-- <input v-if="(respuesta === 'true')" type="radio"  v-bind:name="key" v-bind:id="key" v-bind:value="dato">         -->
+                                                       <!--  <input v-if="(respuesta === 'true')" type="radio"  v-bind:name="key" v-bind:id="key" v-bind:value="dato">   -->      
                                                 </div>
                                             </div>
                                         </div> 
@@ -247,26 +250,26 @@
                     for (var i = 1; i < this.opcionesRespuesta.length; i++) {
                         if (this.opcionesRespuesta[i].checked){
                             if(this.opcionesRespuesta[i].value == "concentracion"){
-                                this.resultado = this.resultado + this.calificacion;
+                                // this.resultado = this.resultado + this.calificacion;
                                 this.concentracion = this.concentracion + this.calificacion; 
                             }
                             if(this.opcionesRespuesta[i].value == "calculo"){
-                                this.resultado = this.resultado + this.calificacion;
+                                // this.resultado = this.resultado + this.calificacion;
                                 this.calculo = this.calculo + this.calificacion; 
                             }
                             if(this.opcionesRespuesta[i].value == "memoria"){
-                                this.resultado = this.resultado + this.calificacion;
+                                // this.resultado = this.resultado + this.calificacion;
                                 this.memoria = this.memoria + this.calificacion; 
                             }
                         }
                     }
                 }
 
-                this.resultado = Math.round(this.resultado)
                 // this.concentracion = this.concentracion.toFixed(2)
                 this.concentracion = Math.round(this.concentracion)
                 this.calculo = Math.round(this.calculo)
                 this.memoria = Math.round(this.memoria)
+                this.resultado = this.concentracion + this.calculo + this.memoria
                 this.calificacionGeneral = true;
 
             },

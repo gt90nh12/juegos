@@ -468,60 +468,7 @@
                         </div>
                         <div class="tab-pane" id="settings" role="tabpanel">
                             <div class="card-body">
-                                <form class="form-horizontal form-material">
-                                    <div class="form-group">
-                                        <label class="col-md-12">Full Name</label>
-                                        <div class="col-md-12">
-                                            <input type="text" placeholder="Johnathan Doe"
-                                                class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="example-email" class="col-md-12">Email</label>
-                                        <div class="col-md-12">
-                                            <input type="email" placeholder="johnathan@admin.com"
-                                                class="form-control form-control-line" name="example-email"
-                                                id="example-email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Password</label>
-                                        <div class="col-md-12">
-                                            <input type="password" value="password"
-                                                class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Phone No</label>
-                                        <div class="col-md-12">
-                                            <input type="text" placeholder="123 456 7890"
-                                                class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Message</label>
-                                        <div class="col-md-12">
-                                            <textarea rows="5" class="form-control form-control-line"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-12">Select Country</label>
-                                        <div class="col-sm-12">
-                                            <select class="form-control form-control-line">
-                                                <option>London</option>
-                                                <option>India</option>
-                                                <option>Usa</option>
-                                                <option>Canada</option>
-                                                <option>Thailand</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <button class="btn btn-success">Update Profile</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <chartjs-doughnut v-bing:labels="labels" v-bing:dataset="datasets" v-bind:option="option"></chartjs-doughnut>
                             </div>
                         </div>
                     </div>
@@ -537,16 +484,44 @@
 </template>
 
 <script>
+
+
 import db from '@/firebase/init'
 import firebase from 'firebase'
+let calculoJuegoEmparejamiento=0;
+let concentraciónJuegoVideo=0;
+let memoriaTecnicaCadena=0;
+let testGeneral=0;
+let rudeEstudiante="806200262016001";
+let jsonEstudiante = {};
+let estudianteCalificacion = {};
+let dbfirebase = db.database();
+let estudiantedb =  dbfirebase.ref('estudiante'); 
 export default {
     name:"logout",
     data() {
         return {
-            user: null
+            user:null,
+            labels:["Concentracion","Memoria","calculo"],
+            datasets:[
+                {
+                    data:[20, 30, 50],
+                    backgroundColor: ["red","yellow","blue"]
+                }
+            ],
+            option:{
+                title:{
+                    display:true,
+                    position:"bottom",
+                    text:"frutis"
+                }
+            }
         }
     },
+    mounted () {
+    },
     methods:{
+
         logout()
         {
             firebase.auth().signOut().then(() => {
@@ -562,17 +537,36 @@ export default {
             // })
         },
 
-    },
-    created (){
-        firebase.auth().onAuthStateChanged(user => {
-            if (user){
-                this.user = user
-                console.log(user)
-            }else{
-                this.user = null
-            }
-        })
-    }
+        },
+        created (){
+            firebase.auth().onAuthStateChanged(user => {
+                if (user){
+                    const email = user.email;
+                    this.user=user;
+                    estudiantedb.on("value", function(snapshot) {
+                        jsonEstudiante = snapshot.val();
+                        for (const property in jsonEstudiante){
+                            // La variable (property) obtiene el RUDE del estudiante en la tabla NoSQL
+                            // La variable jsonEstudiante[property] obtiene, el nodo del registro del estudiante (Esta información es almacenada en la variable estudianteCalificacion)
+                            // console.log("Data Base Correo:" + jsonEstudiante[property].correo +" " +typeof(jsonEstudiante[property].correo));
+                            // console.log("autenticathion Correo:" + email+" " +typeof(email));
+                            const correoDataBase = jsonEstudiante[property].correo;
+                            var correo =  jsonEstudiante[property].calculo.correo; 
+                            if(correoDataBase == email){
+                                calculoJuegoEmparejamiento = jsonEstudiante[property].calculo.juego_emparejamiento;
+                                concentraciónJuegoVideo = jsonEstudiante[property].concentracion.juego_video;
+                                memoriaTecnicaCadena = jsonEstudiante[property].memoria.tecnica_cadena;
+                                testGeneral = jsonEstudiante[property].test.memoria;
+                                console.log(calculoJuegoEmparejamiento, concentraciónJuegoVideo, memoriaTecnicaCadena, testGeneral);
+                            }
+                        }
+                    });
+                }else{
+                    this.user = null
+                }
+            })
+        }
+
 }
 
 </script>

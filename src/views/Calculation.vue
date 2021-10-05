@@ -1,5 +1,18 @@
 <template>
-  <div class="about">
+
+  <div class="calculation">
+  
+<!-- <a href="#openModal">Lanzar el modal</a>
+
+<div id="openModal" class="modalDialog">
+  <div>
+    <a href="#close" title="Close" class="close">X</a>
+    <h2>Mi modal</h2>
+    <p>Este es un ejemplo de modal, creado gracias al poder de CSS3.</p>
+    <p>Puedes hacer un montón de cosas aquí, como alertas o incluso crear un formulario de registro aquí mismo.</p>
+  </div>
+</div> -->
+    <input type="text" id="emailEstudiante" value="gt90nh@gmail.com">
     <div class="container space-2 space-3--md">
       <div class="row justify-content-md-between align-items-md-center">
         <div class="col-md-6 col-lg-5 mb-9 mb-md-0">
@@ -7,8 +20,8 @@
         </div>
         <div class="col-md-6">
           <div class="mb-5">
-            <h2 class="display-5 font-size-25--md-down font-weight-medium mb-3">Técnica de la cadena</h2>
-            <p class="lead">Se utiliza para memorizar listas cortas de elementos, en las que cada elemento deberá ser ligado o asociado con el siguiente. Asociar o ligar un elemento con otro es lo que aumenta el nivel de recordación. El método de la cadena o de enganche es sumamente sencillo, aunque su práctica y utilidad no tiene límites..</p>
+            <h2 class="display-5 font-size-25--md-down font-weight-medium mb-3">Técnica del calculo</h2>
+            <p class="lead">El cálculo mental, hace referencia al “conjunto de procedimientos que, analiza los datos por tratar, se articulan sin recurrir a un algoritmo preestablecido, para obtener resultados exactos o aproximados”. Se caracteriza por la presencia de una diversidad de técnicas que se adaptan a los números en juego y a los conocimientos (o preferencias) del sujeto que las despliega. (Wolman).</p>
           </div>
           <div class="row mb-3">
             <div class="col-lg-12 order-lg-2 mb-7 mb-lg-0">
@@ -21,7 +34,7 @@
                     <img class="max-width-6 mr-3" src="../assets/svg/components/user-type-dark-icon.svg" alt="Image Description">
                     <div class="media-body">
                       <h3 class="h6 mb-0">Nivel del juego:</h3>
-                      <small class="text-secondary">Medio</small>
+                      <small class="text-secondary">Basico</small>
                     </div>
                   </li>
 
@@ -31,7 +44,7 @@
                     <img class="max-width-6 mr-3" src="../assets/svg/components/file-dark-icon.svg" alt="Image Description">
                     <div class="media-body">
                       <h3 class="h6 mb-0">Puntaje del juego:</h3>
-                      <a class="small text-secondary" href="#">Treinta y tres</a>
+                      <a class="small text-secondary" href="#">diez puntos</a>
                     </div>
                   </li>
 
@@ -41,11 +54,10 @@
                     <img class="max-width-6 mr-3" src="../assets/svg/components/clock-dark-icon.svg" alt="Image Description">
                     <div class="media-body">
                       <h3 class="h6 mb-0">Tiempo de Juego:</h3>
-                      <small class="text-secondary">00:00:30</small>
+                      <small class="text-secondary">00:30:00</small>
                     </div>
                   </li>
                 </ul>
-                <!-- End Contacts List -->
             </div>
           </div>
           <p class="btn btn-wide btn-light mb-1 mb-sm-0 mr-2">15/02/2021</p>
@@ -53,14 +65,8 @@
         </div>
       </div>
     </div>	  
-    <div class="cadena">
-      <div class="cadena-imagen-tiempo">
-        <img v-bind:src="direccionImagen" />
-      </div>       
-    </div>
-    <!-- <h3 class="display-4 font-size-48--md-down mb-3">Seleccione las imagenes en el orden <strong class="text-primary">correspondiente</strong></h3> -->
     <div class="container">
-      <h5 class="w-lg-55 wont-weight-normal text-sm-center mx-auto mb-8">Seleccione las imagenes en el orden correspondiente en el que se presento.<br class="d-none d-xl-inline-block"> a jugar!.</h5>
+      <h5 class="w-lg-55 wont-weight-normal text-sm-center mx-auto mb-8">En la matriz calcule mental, realice el emparajamiento de la operacion matematica y su resultado.<br class="d-none d-xl-inline-block"> a jugar!.</h5>
       <div class="row text-sm-center">
         <!-- Feature Item -->
         <div class="col-6 col-sm mb-5 mb-sm-0">
@@ -73,11 +79,8 @@
               </g>
             </svg>
           </i>
-          <h6 class="font-weight-medium text-gray-700">Tecnica de la cadena</h6>
+          <h6 class="font-weight-medium text-gray-700" @click="iniciar()">Iniciar juego</h6>
         </div>
-        <!-- End Feature Item -->
-
-        <!-- Feature Item -->
         <div class="col-6 col-sm mb-5 mb-sm-0">
           <i class="svg-icon svg-icon-sm text-primary mb-3">
             <svg width="24px" height="40px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -88,11 +91,8 @@
               </g>
             </svg>
           </i>
-          <h6 class="font-weight-medium text-gray-700">Nivel medio</h6>
+          <h6 class="font-weight-medium text-gray-700" @click="armarMatriz()">Nivel basico</h6>
         </div>
-        <!-- End Feature Item -->
-
-        <!-- Feature Item -->
         <div class="col-6 col-sm mb-5 mb-sm-0">
           <i class="svg-icon svg-icon-sm text-primary mb-3">
             <svg width="24px" height="40px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -102,11 +102,8 @@
               </g>
             </svg>
           </i>
-          <h6 class="font-weight-medium text-gray-700">100 puntos</h6>
+          <h6 class="font-weight-medium text-gray-700"><span>{{puntaje}}</span> puntos</h6>
         </div>
-        <!-- End Feature Item -->
-
-        <!-- Feature Item -->
         <div class="col-6 col-sm mb-5 mb-sm-0">
           <i class="svg-icon svg-icon-sm text-primary mb-3">
             <svg width="24px" height="40px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -117,11 +114,8 @@
               </g>
             </svg>
           </i>
-          <h6 class="font-weight-medium text-gray-700">05:03:00</h6>
+          <h6 class="font-weight-medium text-gray-700">00 m:<span>{{cronometroSegundos}} s</span></h6>
         </div>
-        <!-- End Feature Item -->
-
-        <!-- Feature Item -->
         <div class="col-6 col-sm">
           <i class="svg-icon svg-icon-sm text-primary mb-3">
             <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -134,93 +128,117 @@
           </i>
           <h6 class="font-weight-medium text-gray-700" @click="juegoFinalizado()">Finalizar</h6>
         </div>
-        <!-- End Feature Item -->
       </div>
     </div>
-    <div class="galeria">
-      <div class="galeria-imagen" v-for="(dato, descripcion) in imagenes" v-on:click="imagenSeleccionada($event)">
-        <img v-bind:src="dato"   id="descripcion" class="imagen" alt="img" />
-      </div>
+    <div id="juegoEmparejar" class="contenedor-general-matriz">
+        <div class="matriz contenedor-celda-matriz" v-for="(value, key, index) in matriz">
+          <div class="matriz-celda juegoEmparejarMostrar" @click="celdaSeleccionada($event)">
+            <!-- <label class="ocultar label-calculo">{{key}}</label> -->
+            <p class="matriz-celda-contenido" @click="emparejar(value)">{{key}}</p>
+          </div>
+        </div>
+      
     </div>
   </div>
-</template>
-  <script>
-    import db from '@/firebase/init'
-    let dbfirebase = db.database();
-    export default {
-        name: "about",
-        data() {
-          return {
-            nombreJuego:"tecnicaDeCadena",
-            imagenes: [
-		          'https://firebasestorage.googleapis.com/v0/b/aprendizaje-57cdc.appspot.com/o/memoria%2Fimg1.jpg?alt=media&token=d48e2eb9-4bca-4380-9ecf-5f66663f8370',
-		          'https://firebasestorage.googleapis.com/v0/b/aprendizaje-57cdc.appspot.com/o/memoria%2Fimg5.jpg?alt=media&token=9a3b8e7d-54c7-4d74-a1b8-fb1b34d8a180',
-		          'https://firebasestorage.googleapis.com/v0/b/aprendizaje-57cdc.appspot.com/o/memoria%2Fimg4.jpg?alt=media&token=4f33bb47-61b6-46b5-a3f6-a425921ab9d0',
-		          'https://firebasestorage.googleapis.com/v0/b/aprendizaje-57cdc.appspot.com/o/memoria%2Fimg3.jpg?alt=media&token=79840513-c943-403a-b9fa-e2fe5415e5af',
-		          'https://firebasestorage.googleapis.com/v0/b/aprendizaje-57cdc.appspot.com/o/memoria%2Fimg2.jpg?alt=media&token=b77f3a20-51fd-476f-91d5-3c422cc799f7',
-		        ],
-            seleccionImagen:[],
-		        direccionImagen:'',
-            puntaje:0,
-            timer: "",
-            };
-          },
-          methods:{
-            imagenSeleccionada:function(e) {
-              var imagen = e.target.src;
-              e.target.classList.add("clase-agregada");
-              this.seleccionImagen.push(imagen);  
-              console.log(this.seleccionImagen);
-            },
-            juegoFinalizado(){
-              for (let i = 0; i < 5; i++) {
-                  // console.log(this.seleccionImagen[i]);
-                  if(this.seleccionImagen[i]==this.imagenes[i]){
-                    this.puntaje=this.puntaje+1;
-                  }
-              }
-              var estudiante="7062007520132301";
-              /*-------------------------- INICIA CALIFICAION JUEGO -------------------------*/
-              var calificacionJuego ={
-                aprendizaje:"memoria",
-                nombe:"cadena",
-                puntaje:this.puntaje
-              } 
-              dbfirebase.ref("calificacion/memoria").child(estudiante).push(calificacionJuego);
-              /*------------------------- FINALIZA CALIFICAION JUEGO ------------------------*/
-              /*--------------------- INICIA HISTORIAL JUEGO ESTUDIANTE ---------------------*/
-              var hoy = new Date();
-              var fecha = hoy.getDate() + '-' + (hoy.getMonth()+1) + '-' + hoy.getFullYear();
-              var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
-              var fechaYHora = fecha + ' ' + hora;
-              console.log(fechaYHora);
-              var historialJuego ={
-                fecha:fechaYHora,
-                puntaje:this.puntaje
-              } 
-              dbfirebase.ref("historial/"+this.nombreJuego).child(estudiante).push(historialJuego);
-              /*-------------------- FINALIZA HISTORIAL JUEGO ESTUDIANTE --------------------*/
 
-              
-              console.log(this.puntaje);
-            },
-          },
-          mounted() {
-            let _this = this;
-            let num = 0;
-            // Create and execute timer
-            this.timer = setInterval(() => {
-              // clear the timer when num is equal to 100
-                if (num == 5) {
-                    clearInterval(_this.timer);
-                    console.log('finalizo el juego')
-                }else{
-                	this.direccionImagen=this.imagenes[num];
-                    console.log(this.imagenes[num]);
-                }
-                // console.log(num++);
-                num++
-          }, 5000);
+
+
+</template>
+
+ <script>
+  import db from '@/firebase/init'
+  let emparejamiento = {};
+  let dbfirebase = db.database();
+  let calculodb = dbfirebase.ref('calculo/emparejamiento/1');
+  calculodb.on("value", function(snapshot) {
+  emparejamiento = snapshot.val();
+  }, function (errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+
+  export default {
+    name: "about",
+    data() {
+      return {
+        matriz:{
+          "10+5":"1",
+          "15":"1",
+          "4+3":"2",
+          "7":"2",
+          "11+5":"3",
+          "16":"3",
+          "3+3":"4",
+          "6":"4",
+          "5X2":"5",
+          "10":"5",
+          "9x2":"6",
+          "18":"6",
         },
-    };
-  </script>
+        numeroRude:806200262016001,
+        emparejar1:"",
+        matrizFila:3,
+        matrizColumna:3,
+        emparejar2:"",
+        puntaje:0,
+        tiempoJuegoEnSegundos:30,
+        cronometroSegundos:0,
+      }
+    },
+    methods:{
+      iniciar(){
+        var timepoDeJuego=this.tiempoJuegoEnSegundos;
+        var segundos=0;
+        this.cronometroSegundos=0;
+        var tiempoEmparajar = this.tiempoJuegoEnSegundos/2; 
+        var timer = setInterval(function(){
+          if(segundos === timepoDeJuego){
+            clearInterval(timer);
+            alert("Juego Finalizado");
+          }
+          if(segundos == tiempoEmparajar){
+            document.getElementById("juegoEmparejar").classList.add("juegoEmparejarOcultar");
+          }
+          segundos++;
+          console.log(segundos);
+          this.cronometroSegundos=this.cronometroSegundos+1;
+        },1000);
+        // console.log(emparejamiento);
+      },
+      celdaSeleccionada:function(e){
+        var celda = e.target.src;
+        e.target.classList.add("celdaMostrar");
+      },
+      emparejar(valor){
+        if(this.emparejar1 != ""){
+          this.emparejar2=valor
+        }
+        if (this.emparejar1 == ""){
+          this.emparejar1=valor;
+        }
+        console.log("Emparejar1:", this.emparejar1);
+        console.log("Emparejar2:", this.emparejar2);
+        if (this.emparejar1!="" & this.emparejar2!="") {
+          if (this.emparejar1 == this.emparejar2) {
+            this.puntaje=this.puntaje+1
+          } 
+          this.emparejar1=""
+          this.emparejar2=""
+        }
+        // console.log("Puntaje:", this.puntaje);
+      },
+      CloseModal() {
+        this.calificacionGeneral = false;
+      },
+      juegoFinalizado(){ 
+        var calificacionJuego ={
+          aprendizaje:"calculo",
+          nombe:"emparejamiento",
+          puntaje:this.puntaje
+
+        } 
+        var estudiante="7062007520132301";
+        dbfirebase.ref("calificacion/calculo").child(estudiante).push(calificacionJuego);
+      }
+    }
+  };
+</script>
